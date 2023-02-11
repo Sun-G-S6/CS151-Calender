@@ -50,10 +50,7 @@ public class MyCalenderTester {
 					System.out.print("\t");
 					i++;
 			  	}
-				//System.out.println();
-
-				//int dayConverter = x.getDayOfWeek().getValue();
-
+				
 				for( int dayCounter = 1; dayCounter <= x.lengthOfMonth(); dayCounter++ ) {
 					if((dayCounter + 2) % 7  == 0) {
 						System.out.println();
@@ -66,21 +63,6 @@ public class MyCalenderTester {
 					}
 					
 				}
-	            
-
-	            // To print a calendar in a specified format. 
-	            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d ");
-	            
-	           
-	            
-	            // To figure out the day of week of the 1st day of the given month
-	            //LocalDate x = LocalDate.of(c.getYear(), c.getMonth(), 1);
-				System.out.println("\n" + formatter.format(c));
- 
-	            System.out.println(x.lengthOfMonth() + " is the day of " + c.getMonth() + " 1."); // enum value as it is
-	            System.out.println(x.getDayOfWeek().getValue() + " is an integer value corresponding "
-	            		+ " to " + x.getDayOfWeek()); // int value corresponding to the enum value
-	            
 	        }
 	        
 	        

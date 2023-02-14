@@ -21,5 +21,16 @@ public class MyCalender
     {
         events.remove(e);
     }
+    
+    //take the inputted date & time of event and make sure it doesn't conflict with any others
+    public void checkTime(Event e)
+    {
+        for (int i = 0; i < events.size(); i++) 
+        {
+            if(events.get(i).returnTime())
+        }
+
+        
+    }
 
 }

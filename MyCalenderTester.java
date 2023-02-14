@@ -17,7 +17,7 @@ public class MyCalenderTester {
 					File file = new File(events.txt);
 					Scanner fileScanner = new Scanner(file);
 					MyCalender calender;
-
+					Event eventText;
 					/*
 					 * St Patrick's Day
 					 * 3/17/23 19:00 21:30
@@ -25,14 +25,8 @@ public class MyCalenderTester {
 					
 	                while (fileScanner.hasNextLine())
 	                {
-						Event input = fileScanner.nextLine();
-						Pattern datePattern = Pattern.compile("(?=.*:)(?=.*:)");
-
-						if (pattern.matcher(input).find()) 
-						{
-							calender.add(input);
-						}
-	                    
+						eventText.addName(fileScanner.nextLine());
+						eventText.addTime(fileScanner.nextLine());
 	                }
 
 	                System.out.println("Loading is done!");

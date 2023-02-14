@@ -17,5 +17,15 @@ public class Event
         ti.addStartTime(inTime);
         ti.addEndTime(inTime);
     }
+
+    public string returnName()
+    {
+        return name;
+    }
+    
+    public TimeInterval returnTime()
+    {
+        return ti;
+    }
 }
 

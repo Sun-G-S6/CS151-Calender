@@ -7,6 +7,7 @@ public class TimeInterval
     private LocalTime st;
     private LocalTime et;
 
+    //need to figure out how to accept the format
     public void addStartTime(LocalTime inStart)
     {
         st = inStart;
@@ -16,4 +17,5 @@ public class TimeInterval
     {
         et = inEnd;
     }
+    
 }

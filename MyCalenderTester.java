@@ -2,7 +2,9 @@ package cs151ProgramAssignment1;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 
 public class MyCalenderTester {
@@ -10,33 +12,36 @@ public class MyCalenderTester {
 	
 	        public static void main(String [] args)
 	        {
-	                LocalDate cal = LocalDate.now(); // capture today
-	                Scanner sc = new Scanner(System.in);
-	                //System.out.print("Today: ");
+	                LocalDate cal = LocalDate.now();
+	                
+					File file = new File(events.txt);
+					Scanner fileScanner = new Scanner(file);
+					MyCalender calender;
 
-	                printCalendar(cal);
-
-	                while (sc.hasNextLine())
+					/*
+					 * St Patrick's Day
+					 * 3/17/23 19:00 21:30
+					 */
+					
+	                while (fileScanner.hasNextLine())
 	                {
-	                        String input = sc.nextLine();
-	                        if (input.equals("p"))
-	                        {
-	                                cal = cal.minusMonths(1); // LocalDateTime is immutable
-	                                printCalendar(cal);
-	                        }
-	                        else if (input.equals("n"))
-	                        {
-	                                cal = cal.plusMonths(1); // LocalDateTime is immutable
-	                                printCalendar(cal);
-	                                
-	                        }
+						Event input = fileScanner.nextLine();
+						Pattern datePattern = Pattern.compile("(?=.*:)(?=.*:)");
+
+						if (pattern.matcher(input).find()) 
+						{
+							calender.add(input);
+						}
+	                    
 	                }
-	                System.out.println("Bye!");
+
+	                System.out.println("Loading is done!");
+
+					printCalendar(cal);
 	        }
+
 	        public static void printCalendar(LocalDate c)
 	        {  
-	            //System.out.print(c.getDayOfWeek());
-	            //System.out.print(c.getDayOfMonth());
 	            System.out.print("\t" + c.getMonth());
 	            System.out.print(" ");
 	            System.out.println(c.getYear());
@@ -46,12 +51,15 @@ public class MyCalenderTester {
 				LocalDate x = LocalDate.of(c.getYear(), c.getMonth(), 1);
 				int i = 0;
 			   	int firstDayOfMonth = x.getDayOfWeek().getValue();
-	           	while( i < firstDayOfMonth ) {
+
+	           	while( i < firstDayOfMonth ) 
+				{
 					System.out.print("\t");
 					i++;
 			  	}
 				
-				for( int dayCounter = 1; dayCounter <= x.lengthOfMonth(); dayCounter++ ) {
+				for( int dayCounter = 1; dayCounter <= x.lengthOfMonth(); dayCounter++ ) 
+				{
 					if((dayCounter + 2) % 7  == 0) {
 						System.out.println();
 					}
@@ -61,10 +69,6 @@ public class MyCalenderTester {
 					else {
 						System.out.print(dayCounter + "\t");
 					}
-					
 				}
 	        }
-	        
-	        
-
 	        }

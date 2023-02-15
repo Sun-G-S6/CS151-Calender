@@ -1,10 +1,13 @@
 package cs151ProgramAssignment1;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import java.io.File;
 
 
 public class MyCalenderTester {
@@ -13,21 +16,42 @@ public class MyCalenderTester {
 	        public static void main(String [] args)
 	        {
 	                LocalDate cal = LocalDate.now();
-	                
-					File file = new File(events.txt);
-					Scanner fileScanner = new Scanner(file);
-					MyCalender calender;
-					Event eventText;
+	                MyCalender calender;
+					Event calenderEvent;
+					String eventName;
+					String secondLine;
+					
+					try 
+					{
+						File eventFile = new File("events.txt");
+						Scanner eventScanner = new Scanner(eventFile);
+
+						while(eventScanner.hasNextLine())
+						{
+							eventName = eventScanner.nextLine();
+							System.out.println(eventName + "\tThis works!");
+							//calenderEvent.addName(eventName);
+							secondLine = eventScanner.nextLine();
+							System.out.print(secondLine);
+
+						}
+						eventScanner.close();
+					}
+					catch(IOException e)
+					{
+						System.out.println("Error: File not found");
+						e.printStackTrace();
+					}
+
 					/*
 					 * St Patrick's Day
 					 * 3/17/23 19:00 21:30
+					 * 
+					 * CS151 Lecture
+					 * TR 9:00 10:15 1/24/23 5/23/23
 					 */
 					
-	                while (fileScanner.hasNextLine())
-	                {
-						eventText.addName(fileScanner.nextLine());
-						eventText.addTime(fileScanner.nextLine());
-	                }
+	                
 
 	                System.out.println("Loading is done!");
 

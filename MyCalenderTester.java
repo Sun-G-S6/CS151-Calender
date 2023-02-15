@@ -19,7 +19,7 @@ public class MyCalenderTester {
 	                LocalDate cal = LocalDate.now();
 	                MyCalender calender = new MyCalender();
 					Event calenderEvent = new Event();
-					String eventDetails;
+					String eventName, eventDetails;
 					char repeatChecker;
 					LocalDateTime eventDateTime;
 					//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm H:mm M/dd/yy M/dd/yy");
@@ -31,13 +31,19 @@ public class MyCalenderTester {
 						
 						while(eventScanner.hasNextLine())
 						{
-							eventDetails = eventScanner.nextLine();
+							eventName = eventScanner.nextLine();
+
+							//eventScanner.useDelimiter("[^A-Za-z]");
+							//eventDetails = eventScanner.nextLine();
+
 							repeatChecker = eventScanner.nextLine().charAt(0);
-							System.out.println(eventDetails);
-							System.out.println("Current char: " + repeatChecker);
+							System.out.println(eventName);
+							//System.out.println("Current char: " + repeatChecker);
 							if(Character.isDigit(repeatChecker))
 							{
 								System.out.println("\t\tThis is a singular event\t");
+							//	eventDetails = eventScanner.nextLine();
+							//	System.out.println("\tGot the first digit: " + eventDetails);
 							}
 							else {
 								System.out.println("\t\tThis is a repeating event\t");
@@ -45,7 +51,7 @@ public class MyCalenderTester {
 							// calenderEvent.addDateTime(eventDateTime);
 							// calenderEvent.addTime(eventDateTime);
 							//System.out.println(eventDetails);
-							calenderEvent.addName(eventDetails);
+							calenderEvent.addName(eventName);
 						}			
 							
 						

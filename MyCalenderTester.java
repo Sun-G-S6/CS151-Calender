@@ -3,10 +3,11 @@ package cs151ProgramAssignment1;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 import java.io.File;
 
 
@@ -16,25 +17,38 @@ public class MyCalenderTester {
 	        public static void main(String [] args)
 	        {
 	                LocalDate cal = LocalDate.now();
-	                MyCalender calender;
-					Event calenderEvent;
-					String eventName;
-					String secondLine;
+	                MyCalender calender = new MyCalender();
+					Event calenderEvent = new Event();
+					String eventDetails;
+					char repeatChecker;
+					LocalDateTime eventDateTime;
+					//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm H:mm M/dd/yy M/dd/yy");
 					
 					try 
 					{
 						File eventFile = new File("events.txt");
 						Scanner eventScanner = new Scanner(eventFile);
-
+						
 						while(eventScanner.hasNextLine())
 						{
-							eventName = eventScanner.nextLine();
-							System.out.println(eventName + "\tThis works!");
-							//calenderEvent.addName(eventName);
-							secondLine = eventScanner.nextLine();
-							System.out.print(secondLine);
-
-						}
+							eventDetails = eventScanner.nextLine();
+							repeatChecker = eventScanner.nextLine().charAt(0);
+							System.out.println(eventDetails);
+							System.out.println("Current char: " + repeatChecker);
+							if(Character.isDigit(repeatChecker))
+							{
+								System.out.println("\t\tThis is a singular event\t");
+							}
+							else {
+								System.out.println("\t\tThis is a repeating event\t");
+							}
+							// calenderEvent.addDateTime(eventDateTime);
+							// calenderEvent.addTime(eventDateTime);
+							//System.out.println(eventDetails);
+							calenderEvent.addName(eventDetails);
+						}			
+							
+						
 						eventScanner.close();
 					}
 					catch(IOException e)
@@ -42,11 +56,14 @@ public class MyCalenderTester {
 						System.out.println("Error: File not found");
 						e.printStackTrace();
 					}
-
-					/*
+					
+					/*	Example singular event
 					 * St Patrick's Day
 					 * 3/17/23 19:00 21:30
 					 * 
+					 * S-SUNDAY M-MONDAY T-TUESDAY W-WEDNESDAY R-THURSDAY F-FRIDAY A-SATURDAY
+					 * 
+					 * 	Example repeating event
 					 * CS151 Lecture
 					 * TR 9:00 10:15 1/24/23 5/23/23
 					 */
@@ -88,5 +105,15 @@ public class MyCalenderTester {
 						System.out.print(dayCounter + "\t");
 					}
 				}
+				// To print a calendar in a specified format.	E MMM d yyyy
+				/*
+				 * of(LocalDate date, LocalTime time)
+				 * Obtains an instance of LocalDateTime from a date and time.
+				 */
+				LocalTime timeExample = LocalTime.of(7, 30, 0);
+				LocalDateTime formatDateExample = LocalDateTime.of(c, timeExample);
+				String timeColonPattern = "E H:mm M/d/y";
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern(timeColonPattern);
+				System.out.println("\n\n\tFormatter in action: " + formatter.format(formatDateExample));
 	        }
 	        }

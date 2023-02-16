@@ -8,10 +8,6 @@ Dentist Appointment
 5/12/23 10:00 11:30
 My Birthday party
 7/19/23 19:00 23:00
-
-
-
-
 CS151 Lecture
 TR 09:00 10:15 1/24/23 5/23/23
 CMPE102 Lecture

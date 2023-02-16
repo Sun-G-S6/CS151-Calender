@@ -28,30 +28,45 @@ public class MyCalenderTester {
 					{
 						File eventFile = new File("events.txt");
 						Scanner eventScanner = new Scanner(eventFile);
-						
+						eventScanner.useDelimiter(System.lineSeparator());
+
+						int lineCounter = 1;
+
 						while(eventScanner.hasNextLine())
 						{
 							eventName = eventScanner.nextLine();
 
-							//eventScanner.useDelimiter("[^A-Za-z]");
+							if(lineCounter % 2 ==1)
+							{
+								eventScanner.useDelimiter(System.lineSeparator());
+								calenderEvent.addName(eventName);
+							} else {
+								eventScanner.useDelimiter("[^0-9]+");
+								while(eventScanner.hasNextInt())
+								{
+									int number = eventScanner.nextInt();
+									
+								}
+							}
+
 							//eventDetails = eventScanner.nextLine();
 
-							repeatChecker = eventScanner.nextLine().charAt(0);
+							//repeatChecker = eventScanner.nextLine().charAt(0);
 							System.out.println(eventName);
 							//System.out.println("Current char: " + repeatChecker);
-							if(Character.isDigit(repeatChecker))
-							{
-								System.out.println("\t\tThis is a singular event\t");
+							//if(Character.isDigit(repeatChecker))
+							//{
+							//	System.out.println("\t\tThis is a singular event\t");
 							//	eventDetails = eventScanner.nextLine();
 							//	System.out.println("\tGot the first digit: " + eventDetails);
-							}
-							else {
-								System.out.println("\t\tThis is a repeating event\t");
-							}
+							//}
+							//else {
+							//	System.out.println("\t\tThis is a repeating event\t");
+							//}
 							// calenderEvent.addDateTime(eventDateTime);
 							// calenderEvent.addTime(eventDateTime);
 							//System.out.println(eventDetails);
-							calenderEvent.addName(eventName);
+							//calenderEvent.addName(eventName);
 						}			
 							
 						
@@ -76,7 +91,7 @@ public class MyCalenderTester {
 					
 	                
 
-	                System.out.println("Loading is done!");
+	                System.out.println("\n\n\n\n\n\nLoading is done!");
 
 					printCalendar(cal);
 	        }

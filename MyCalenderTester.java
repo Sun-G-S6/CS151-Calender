@@ -19,8 +19,7 @@ public class MyCalenderTester {
 	                LocalDate cal = LocalDate.now();
 	                MyCalender calender = new MyCalender();
 					Event calenderEvent = new Event();
-					String eventName, eventDetails;
-					char repeatChecker;
+					String eventName;
 					LocalDateTime eventDateTime;
 					//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm H:mm M/dd/yy M/dd/yy");
 					
@@ -36,23 +35,25 @@ public class MyCalenderTester {
 						{
 							eventName = eventScanner.nextLine();
 
-							if(lineCounter % 2 ==1)
+							if(lineCounter % 2 == 1)
 							{
 								eventScanner.useDelimiter(System.lineSeparator());
 								calenderEvent.addName(eventName);
+								//System.out.println(eventName + " has been added");
 							} else {
 								eventScanner.useDelimiter("[^0-9]+");
 								while(eventScanner.hasNextInt())
 								{
 									int number = eventScanner.nextInt();
-									
+									System.out.println(number + " has been added ZZZZZZZZZZZZZZZZZZZ");
+
 								}
 							}
-
+							lineCounter++;
 							//eventDetails = eventScanner.nextLine();
 
 							//repeatChecker = eventScanner.nextLine().charAt(0);
-							System.out.println(eventName);
+							
 							//System.out.println("Current char: " + repeatChecker);
 							//if(Character.isDigit(repeatChecker))
 							//{

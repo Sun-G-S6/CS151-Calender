@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
 import java.io.File;
@@ -14,184 +15,182 @@ import java.io.File;
 public class MyCalenderTester {
 	
 	
-	        public static void main(String [] args){
-	                LocalDate cal = LocalDate.now();
-	                MyCalender calender = new MyCalender();
-					Event calenderEvent = new Event();
-					LocalDate eventDay = LocalDate.now();
-					LocalTime eventTime = LocalTime.now();
-					LocalDateTime eventDateTime = LocalDateTime.now();
-					String eventName, eventDetails;
-					
-					int month, startDay, endDay, year, begHour, endHour, begMins, endMins;
-					//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm H:mm M/dd/yy M/dd/yy");
-					
-					try {
-						File eventFile = new File("events.txt");
-						Scanner eventScanner = new Scanner(eventFile);
-						eventScanner.useDelimiter(System.lineSeparator());
-						
-						eventScanner.useDelimiter("\\n");
+	public static void main(String [] args){
+		LocalDate cal = LocalDate.now();
+		MyCalender calender = new MyCalender();
+		Event calenderEvent = new Event();
+		LocalDate eventDay = LocalDate.now();
+		LocalTime eventTime = LocalTime.now();
+		LocalDateTime eventDateTime = LocalDateTime.now();
+		String eventName, eventDetails;
 
-						while (eventScanner.hasNext()) {
-							eventName = eventScanner.next();
-							calenderEvent.addName(eventName);
-							eventDetails = eventScanner.next();
-							String[] eventDetailsArray = eventDetails.split("\\s+");
+		int month, startDay, endDay, year, begHour, endHour, begMins, endMins;
+		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm H:mm M/dd/yy M/dd/yy");
 
-							if (eventDetailsArray.length == 3) {
-								// One time event
-								/*
-								 * Example singular event
-							 	 * St Patrick's Day
-							 	 * 3/17/23 19:00 21:30
-								 */
+		try {
+			File eventFile = new File("events.txt");
+			Scanner eventScanner = new Scanner(eventFile);
+			eventScanner.useDelimiter(System.lineSeparator());
+			
+			eventScanner.useDelimiter("\\n");
 
-								//date
-								String eventDate = eventDetailsArray[0];
-								Scanner detailScanner = new Scanner(eventDate);
-								detailScanner.useDelimiter("[^0-9]+");
-								month = detailScanner.nextInt();
-								startDay = detailScanner.nextInt();
-								year = 2000 + detailScanner.nextInt();
-								detailScanner.close();
-								eventDay = LocalDate.of(year, month, startDay);
-								
-								//beginning time
-								String startTime = eventDetailsArray[1];
-								detailScanner = new Scanner(startTime);
-								detailScanner.useDelimiter("[^0-9]+");
-								begHour = detailScanner.nextInt();
-								begMins = detailScanner.nextInt();
-								detailScanner.close();
-								eventTime = LocalTime.of(begHour, begMins);
-								eventDateTime = LocalDateTime.of(eventDay, eventTime);
-								calenderEvent.addBegDateTime(eventDateTime);
+			while (eventScanner.hasNext()) {
+				eventName = eventScanner.next();
+				calenderEvent.addName(eventName);
+				eventDetails = eventScanner.next();
+				String[] eventDetailsArray = eventDetails.split("\\s+");
 
-								//ending time
-								String endTime = eventDetailsArray[2];
-								detailScanner = new Scanner(endTime);
-								detailScanner.useDelimiter("[^0-9]+");
-								endHour = detailScanner.nextInt();
-								endMins = detailScanner.nextInt();
-								detailScanner.close();
-								eventTime = LocalTime.of(endHour, endMins);
-								eventDateTime = LocalDateTime.of(eventDay, eventTime);
-								calenderEvent.addEndDateTime(eventDateTime);
+				if (eventDetailsArray.length == 3) {
+					// One time event
+					/*
+					 * Example singular event
+					 * St Patrick's Day
+					 * 3/17/23 19:00 21:30
+					 */
 
-								// Do something with the event data
-							} else if (eventDetailsArray.length == 5) {
-								// Recurring event
-								/**
-								 * S-SUNDAY M-MONDAY T-TUESDAY W-WEDNESDAY R-THURSDAY F-FRIDAY A-SATURDAY
-								 * 
-								 * Example repeating event
-								 * CS151 Lecture
-								 * TR 9:00 10:15 1/24/23 5/23/23
-								 * 0 1 2 3 4
-								 */
-								//recurring days
-								String days = eventDetailsArray[0];
-								String[] recurringDays = days.split("");
-								
-								//beginning time
-								Scanner detailScanner = new Scanner(eventDetailsArray[1]);
-								detailScanner.useDelimiter("[^0-9]+");
-								begHour = detailScanner.nextInt();
-								begMins = detailScanner.nextInt();
-								detailScanner.close();
+					//date
+					String eventDate = eventDetailsArray[0];
+					Scanner detailScanner = new Scanner(eventDate);
+					detailScanner.useDelimiter("[^0-9]+");
+					month = detailScanner.nextInt();
+					startDay = detailScanner.nextInt();
+					year = 2000 + detailScanner.nextInt();
+					detailScanner.close();
+					eventDay = LocalDate.of(year, month, startDay);
+					// calenderEvent.addDays(eventDay.getDayOfWeek());
 
-								//ending time
-								detailScanner = new Scanner(eventDetailsArray[2]);
-								detailScanner.useDelimiter("[^0-9]+");
-								endHour = detailScanner.nextInt();
-								endMins = detailScanner.nextInt();
-								detailScanner.close();
+					// beginning time
+					String startTime = eventDetailsArray[1];
+					detailScanner = new Scanner(startTime);
+					detailScanner.useDelimiter("[^0-9]+");
+					begHour = detailScanner.nextInt();
+					begMins = detailScanner.nextInt();
+					detailScanner.close();
+					eventTime = LocalTime.of(begHour, begMins);
+					eventDateTime = LocalDateTime.of(eventDay, eventTime);
+					calenderEvent.addBegDateTime(eventDateTime);
 
-								//beginning date
-								detailScanner = new Scanner(eventDetailsArray[3]);
-								detailScanner.useDelimiter("[^0-9]+");
-								month = detailScanner.nextInt();
-								startDay = detailScanner.nextInt();
-								year = 2000 + detailScanner.nextInt();
-								detailScanner.close();
+					// ending time
+					String endTime = eventDetailsArray[2];
+					detailScanner = new Scanner(endTime);
+					detailScanner.useDelimiter("[^0-9]+");
+					endHour = detailScanner.nextInt();
+					endMins = detailScanner.nextInt();
+					detailScanner.close();
+					eventTime = LocalTime.of(endHour, endMins);
+					eventDateTime = LocalDateTime.of(eventDay, eventTime);
+					calenderEvent.addEndDateTime(eventDateTime);
 
-								//ending date
-								detailScanner = new Scanner(eventDetailsArray[4]);
-								detailScanner.useDelimiter("[^0-9]+");
-								month = detailScanner.nextInt();
-								startDay = detailScanner.nextInt();
-								year = 2000 + detailScanner.nextInt();
-								detailScanner.close();
+				} else if (eventDetailsArray.length == 5) {
+					// Recurring event
+					/**
+					 * S-SUNDAY M-MONDAY T-TUESDAY W-WEDNESDAY R-THURSDAY F-FRIDAY A-SATURDAY
+					 * 7 1 2 3 4 5 6
+					 * Example repeating event
+					 * CS151 Lecture
+					 * TR 9:00 10:15 1/24/23 5/23/23
+					 * 0 1 2 3 4
+					 */
 
-								
-								// Do something with the event data
-							}
-						
-							/*
-							 * Example singular event
-							 * St Patrick's Day
-							 * 3/17/23 19:00 21:30
-							 * 
-							 * S-SUNDAY M-MONDAY T-TUESDAY W-WEDNESDAY R-THURSDAY F-FRIDAY A-SATURDAY
-							 * 
-							 * Example repeating event
-							 * CS151 Lecture
-							 * TR 9:00 10:15 1/24/23 5/23/23
-							 * 0    1    2      3       4
-							 */
-							
-						}			
-							
-						
-						eventScanner.close();
-					}
-					catch(IOException e){
-						System.out.println("Error: File not found");
-						e.printStackTrace();
-					}
+					// recurring days
+					String days = eventDetailsArray[0];
+					String[] recurringDays = days.split("");
 
-	                System.out.println("\n\n\n\n\n\nLoading is done!");
+					// beginning date
+					Scanner detailScanner = new Scanner(eventDetailsArray[3]);
+					detailScanner.useDelimiter("[^0-9]+");
+					month = detailScanner.nextInt();
+					startDay = detailScanner.nextInt();
+					year = 2000 + detailScanner.nextInt();
+					detailScanner.close();
 
-					printCalendar(cal);
-	        }
+					// ending date
+					detailScanner = new Scanner(eventDetailsArray[4]);
+					detailScanner.useDelimiter("[^0-9]+");
+					month = detailScanner.nextInt();
+					startDay = detailScanner.nextInt();
+					year = 2000 + detailScanner.nextInt();
+					detailScanner.close();
 
-	        public static void printCalendar(LocalDate c){  
-	            System.out.print("\t" + c.getMonth());
-	            System.out.print(" ");
-	            System.out.println(c.getYear());
-	            String header = "Sun\tMon\tTue\tWed\tThu\tFri\tSat";
-	            System.out.println(header);
-	           	
-				LocalDate x = LocalDate.of(c.getYear(), c.getMonth(), 1);
-				int i = 0;
-			   	int firstDayOfMonth = x.getDayOfWeek().getValue();
+					// beginning time
+					detailScanner = new Scanner(eventDetailsArray[1]);
+					detailScanner.useDelimiter("[^0-9]+");
+					begHour = detailScanner.nextInt();
+					begMins = detailScanner.nextInt();
+					detailScanner.close();
+					eventTime = LocalTime.of(begHour, begMins);
 
-	           	while( i < firstDayOfMonth ) {
-					System.out.print("\t");
-					i++;
-			  	}
-				
-				for( int dayCounter = 1; dayCounter <= x.lengthOfMonth(); dayCounter++ ) {
-					if((dayCounter + 2) % 7  == 0) {
-						System.out.println();
-					}
-					if( dayCounter == c.getDayOfMonth()) {
-						System.out.print("[" + dayCounter + "]\t");
-					}
-					else {
-						System.out.print(dayCounter + "\t");
-					}
+					// ending time
+					detailScanner = new Scanner(eventDetailsArray[2]);
+					detailScanner.useDelimiter("[^0-9]+");
+					endHour = detailScanner.nextInt();
+					endMins = detailScanner.nextInt();
+					detailScanner.close();
+
+					// Do something with the event data
 				}
-				// To print a calendar in a specified format.	E MMM d yyyy
+
 				/*
-				 * of(LocalDate date, LocalTime time)
-				 * Obtains an instance of LocalDateTime from a date and time.
+				 * Example singular event
+				 * St Patrick's Day
+				 * 3/17/23 19:00 21:30
+				 * 
+				 * S-SUNDAY M-MONDAY T-TUESDAY W-WEDNESDAY R-THURSDAY F-FRIDAY A-SATURDAY
+				 * 
+				 * Example repeating event
+				 * CS151 Lecture
+				 * TR 9:00 10:15 1/24/23 5/23/23
+				 * 0 1 2 3 4
 				 */
-				LocalTime timeExample = LocalTime.of(7, 30, 0);
-				LocalDateTime formatDateExample = LocalDateTime.of(c, timeExample);
-				String timeColonPattern = "E H:mm M/d/y";
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern(timeColonPattern);
-				System.out.println("\n\n\tFormatter in action: " + formatter.format(formatDateExample));
-	        }
-	        }
+
+				eventScanner.close();
+			}
+		} catch (IOException e) {
+			System.out.println("Error: File not found");
+			e.printStackTrace();
+		}
+
+		System.out.println("\n\n\n\n\n\nLoading is done!");
+
+		printCalendar(cal);
+	}
+
+	public static void printCalendar(LocalDate c) {
+		System.out.print("\t" + c.getMonth());
+		System.out.print(" ");
+		System.out.println(c.getYear());
+		String header = "Sun\tMon\tTue\tWed\tThu\tFri\tSat";
+		System.out.println(header);
+
+		LocalDate x = LocalDate.of(c.getYear(), c.getMonth(), 1);
+		int i = 0;
+		int firstDayOfMonth = x.getDayOfWeek().getValue();
+
+		while (i < firstDayOfMonth) {
+			System.out.print("\t");
+			i++;
+		}
+
+		for (int dayCounter = 1; dayCounter <= x.lengthOfMonth(); dayCounter++) {
+			if ((dayCounter + 2) % 7 == 0) {
+				System.out.println();
+			}
+			if (dayCounter == c.getDayOfMonth()) {
+				System.out.print("[" + dayCounter + "]\t");
+			} else {
+				System.out.print(dayCounter + "\t");
+			}
+		}
+		// To print a calendar in a specified format. E MMM d yyyy
+		/*
+		 * of(LocalDate date, LocalTime time)
+		 * Obtains an instance of LocalDateTime from a date and time.
+		 */
+		LocalTime timeExample = LocalTime.of(7, 30, 0);
+		LocalDateTime formatDateExample = LocalDateTime.of(c, timeExample);
+		String timeColonPattern = "E H:mm M/d/y";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(timeColonPattern);
+		System.out.println("\n\n\tFormatter in action: " + formatter.format(formatDateExample));
+		System.out.println(c.getDayOfWeek());
+	}
+}

@@ -5,10 +5,15 @@ import java.time.LocalTime;
 
 public class Event {
     private String name;
+    private String days;
     private TimeInterval ti = new TimeInterval();
 
     public void addName(String inName) {
         name = inName;
+    }
+
+    public void addDayString(String d) {
+        days = d;
     }
 
     public void addBegDateTime(LocalDateTime inTime) {

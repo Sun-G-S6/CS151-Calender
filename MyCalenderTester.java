@@ -95,7 +95,10 @@ public class MyCalenderTester {
 					// recurring days
 					String days = eventDetailsArray[0];
 					String[] recurringDays = days.split("");
-
+					/*
+					 * probably the repeating days to string and compare future ones? 
+					 * idfk 
+					 */
 					// beginning date
 					Scanner detailScanner = new Scanner(eventDetailsArray[3]);
 					detailScanner.useDelimiter("[^0-9]+");

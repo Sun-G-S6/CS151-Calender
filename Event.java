@@ -5,14 +5,17 @@ import java.time.LocalTime;
 
 public class Event {
     private String name;
-    private TimeInterval ti;
+    private TimeInterval ti = new TimeInterval();
 
     public void addName(String inName) {
         name = inName;
     }
 
-    public void addDateTime(LocalDateTime inTime) {
+    public void addBegDateTime(LocalDateTime inTime) {
         ti.addStartTime(inTime);
+    }
+
+    public void addEndDateTime(LocalDateTime inTime) {
         ti.addEndTime(inTime);
     }
 

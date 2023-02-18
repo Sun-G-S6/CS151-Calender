@@ -14,91 +14,149 @@ import java.io.File;
 public class MyCalenderTester {
 	
 	
-	        public static void main(String [] args)
-	        {
+	        public static void main(String [] args){
 	                LocalDate cal = LocalDate.now();
 	                MyCalender calender = new MyCalender();
 					Event calenderEvent = new Event();
-					String eventName;
-					LocalDateTime eventDateTime;
+					LocalDate eventDay = LocalDate.now();
+					LocalTime eventTime = LocalTime.now();
+					LocalDateTime eventDateTime = LocalDateTime.now();
+					String eventName, eventDetails;
+					
+					int month, startDay, endDay, year, begHour, endHour, begMins, endMins;
 					//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm H:mm M/dd/yy M/dd/yy");
 					
-					try 
-					{
+					try {
 						File eventFile = new File("events.txt");
 						Scanner eventScanner = new Scanner(eventFile);
 						eventScanner.useDelimiter(System.lineSeparator());
+						
+						eventScanner.useDelimiter("\\n");
 
-						int lineCounter = 1;
+						while (eventScanner.hasNext()) {
+							eventName = eventScanner.next();
+							calenderEvent.addName(eventName);
+							eventDetails = eventScanner.next();
+							String[] eventDetailsArray = eventDetails.split("\\s+");
 
-						while(eventScanner.hasNextLine())
-						{
-							eventName = eventScanner.nextLine();
+							if (eventDetailsArray.length == 3) {
+								// One time event
+								/*
+								 * Example singular event
+							 	 * St Patrick's Day
+							 	 * 3/17/23 19:00 21:30
+								 */
 
-							if(lineCounter % 2 == 1)
-							{
-								eventScanner.useDelimiter(System.lineSeparator());
-								calenderEvent.addName(eventName);
-								//System.out.println(eventName + " has been added");
-							} else {
-								eventScanner.useDelimiter("[^0-9]+");
-								while(eventScanner.hasNextInt())
-								{
-									int number = eventScanner.nextInt();
-									System.out.println(number + " has been added ZZZZZZZZZZZZZZZZZZZ");
+								//date
+								String eventDate = eventDetailsArray[0];
+								Scanner detailScanner = new Scanner(eventDate);
+								detailScanner.useDelimiter("[^0-9]+");
+								month = detailScanner.nextInt();
+								startDay = detailScanner.nextInt();
+								year = 2000 + detailScanner.nextInt();
+								detailScanner.close();
+								eventDay = LocalDate.of(year, month, startDay);
+								
+								//beginning time
+								String startTime = eventDetailsArray[1];
+								detailScanner = new Scanner(startTime);
+								detailScanner.useDelimiter("[^0-9]+");
+								begHour = detailScanner.nextInt();
+								begMins = detailScanner.nextInt();
+								detailScanner.close();
+								eventTime = LocalTime.of(begHour, begMins);
+								eventDateTime = LocalDateTime.of(eventDay, eventTime);
+								calenderEvent.addBegDateTime(eventDateTime);
 
-								}
+								//ending time
+								String endTime = eventDetailsArray[2];
+								detailScanner = new Scanner(endTime);
+								detailScanner.useDelimiter("[^0-9]+");
+								endHour = detailScanner.nextInt();
+								endMins = detailScanner.nextInt();
+								detailScanner.close();
+								eventTime = LocalTime.of(endHour, endMins);
+								eventDateTime = LocalDateTime.of(eventDay, eventTime);
+								calenderEvent.addEndDateTime(eventDateTime);
+
+								// Do something with the event data
+							} else if (eventDetailsArray.length == 5) {
+								// Recurring event
+								/**
+								 * S-SUNDAY M-MONDAY T-TUESDAY W-WEDNESDAY R-THURSDAY F-FRIDAY A-SATURDAY
+								 * 
+								 * Example repeating event
+								 * CS151 Lecture
+								 * TR 9:00 10:15 1/24/23 5/23/23
+								 * 0 1 2 3 4
+								 */
+								//recurring days
+								String days = eventDetailsArray[0];
+								String[] recurringDays = days.split("");
+								
+								//beginning time
+								Scanner detailScanner = new Scanner(eventDetailsArray[1]);
+								detailScanner.useDelimiter("[^0-9]+");
+								begHour = detailScanner.nextInt();
+								begMins = detailScanner.nextInt();
+								detailScanner.close();
+
+								//ending time
+								detailScanner = new Scanner(eventDetailsArray[2]);
+								detailScanner.useDelimiter("[^0-9]+");
+								endHour = detailScanner.nextInt();
+								endMins = detailScanner.nextInt();
+								detailScanner.close();
+
+								//beginning date
+								detailScanner = new Scanner(eventDetailsArray[3]);
+								detailScanner.useDelimiter("[^0-9]+");
+								month = detailScanner.nextInt();
+								startDay = detailScanner.nextInt();
+								year = 2000 + detailScanner.nextInt();
+								detailScanner.close();
+
+								//ending date
+								detailScanner = new Scanner(eventDetailsArray[4]);
+								detailScanner.useDelimiter("[^0-9]+");
+								month = detailScanner.nextInt();
+								startDay = detailScanner.nextInt();
+								year = 2000 + detailScanner.nextInt();
+								detailScanner.close();
+
+								
+								// Do something with the event data
 							}
-							lineCounter++;
-							//eventDetails = eventScanner.nextLine();
-
-							//repeatChecker = eventScanner.nextLine().charAt(0);
+						
+							/*
+							 * Example singular event
+							 * St Patrick's Day
+							 * 3/17/23 19:00 21:30
+							 * 
+							 * S-SUNDAY M-MONDAY T-TUESDAY W-WEDNESDAY R-THURSDAY F-FRIDAY A-SATURDAY
+							 * 
+							 * Example repeating event
+							 * CS151 Lecture
+							 * TR 9:00 10:15 1/24/23 5/23/23
+							 * 0    1    2      3       4
+							 */
 							
-							//System.out.println("Current char: " + repeatChecker);
-							//if(Character.isDigit(repeatChecker))
-							//{
-							//	System.out.println("\t\tThis is a singular event\t");
-							//	eventDetails = eventScanner.nextLine();
-							//	System.out.println("\tGot the first digit: " + eventDetails);
-							//}
-							//else {
-							//	System.out.println("\t\tThis is a repeating event\t");
-							//}
-							// calenderEvent.addDateTime(eventDateTime);
-							// calenderEvent.addTime(eventDateTime);
-							//System.out.println(eventDetails);
-							//calenderEvent.addName(eventName);
 						}			
 							
 						
 						eventScanner.close();
 					}
-					catch(IOException e)
-					{
+					catch(IOException e){
 						System.out.println("Error: File not found");
 						e.printStackTrace();
 					}
-					
-					/*	Example singular event
-					 * St Patrick's Day
-					 * 3/17/23 19:00 21:30
-					 * 
-					 * S-SUNDAY M-MONDAY T-TUESDAY W-WEDNESDAY R-THURSDAY F-FRIDAY A-SATURDAY
-					 * 
-					 * 	Example repeating event
-					 * CS151 Lecture
-					 * TR 9:00 10:15 1/24/23 5/23/23
-					 */
-					
-	                
 
 	                System.out.println("\n\n\n\n\n\nLoading is done!");
 
 					printCalendar(cal);
 	        }
 
-	        public static void printCalendar(LocalDate c)
-	        {  
+	        public static void printCalendar(LocalDate c){  
 	            System.out.print("\t" + c.getMonth());
 	            System.out.print(" ");
 	            System.out.println(c.getYear());
@@ -109,14 +167,12 @@ public class MyCalenderTester {
 				int i = 0;
 			   	int firstDayOfMonth = x.getDayOfWeek().getValue();
 
-	           	while( i < firstDayOfMonth ) 
-				{
+	           	while( i < firstDayOfMonth ) {
 					System.out.print("\t");
 					i++;
 			  	}
 				
-				for( int dayCounter = 1; dayCounter <= x.lengthOfMonth(); dayCounter++ ) 
-				{
+				for( int dayCounter = 1; dayCounter <= x.lengthOfMonth(); dayCounter++ ) {
 					if((dayCounter + 2) % 7  == 0) {
 						System.out.println();
 					}

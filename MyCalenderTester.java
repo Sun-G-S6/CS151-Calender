@@ -90,6 +90,12 @@ public class MyCalenderTester {
 					 * CS151 Lecture
 					 * TR 9:00 10:15 1/24/23 5/23/23
 					 * 0 1 2 3 4
+					 * 
+					 * 
+					 * try using date of year and add 7 days to each day its repeated until the final date
+					 * 
+					 * 
+					 * 
 					 */
 
 					// recurring days

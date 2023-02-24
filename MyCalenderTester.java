@@ -24,7 +24,7 @@ public class MyCalenderTester {
 		String eventName, eventDetails;
 
 		int month, startDay, endDay, year, begHour, endHour, begMins, endMins;
-		int[] daysInWeek;
+		int[] daysInWeek = {};
 		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm H:mm M/dd/yy M/dd/yy");
 
 		try {
@@ -104,14 +104,44 @@ public class MyCalenderTester {
 					
 					/*
 					 * probably the repeating days to string and compare future ones? 
-					 * idfk 
+					 * idfk
 					 */
-					for(int i=0; i < recurringDays.length; i++) {
+					for(int i = 0; i < recurringDays.length; i++) {
 						switch(recurringDays[i]) {
 							case "S":
 								daysInWeek[i] = 0 ;
 								break;
+							case "M":
+								daysInWeek[i] = 1;
+								break;
+							case "T":
+								daysInWeek[i] = 2;
+								break;
+							case "W":
+								daysInWeek[i] = 3;
+								break;
+							case "R":
+								daysInWeek[i] = 4;
+								break;
+							case "F":
+								daysInWeek[i] = 5;
+								break;
+							case "A":
+								daysInWeek[i] = 6;
+								break;
 						}
+					// code logic here????
+					
+					for(int j = 0; j < recurringDays.length; j++) {
+						
+					}
+
+
+
+
+
+
+
 					}
 					// beginning date
 					Scanner detailScanner = new Scanner(eventDetailsArray[3]);
@@ -125,7 +155,7 @@ public class MyCalenderTester {
 					detailScanner = new Scanner(eventDetailsArray[4]);
 					detailScanner.useDelimiter("[^0-9]+");
 					month = detailScanner.nextInt();
-					startDay = detailScanner.nextInt();
+					endDay = detailScanner.nextInt();
 					year = 2000 + detailScanner.nextInt();
 					detailScanner.close();
 

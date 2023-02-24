@@ -14,7 +14,6 @@ import java.io.File;
 
 public class MyCalenderTester {
 	
-	
 	public static void main(String [] args){
 		LocalDate cal = LocalDate.now();
 		MyCalender calender = new MyCalender();
@@ -25,6 +24,7 @@ public class MyCalenderTester {
 		String eventName, eventDetails;
 
 		int month, startDay, endDay, year, begHour, endHour, begMins, endMins;
+		int[] daysInWeek;
 		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm H:mm M/dd/yy M/dd/yy");
 
 		try {
@@ -101,10 +101,18 @@ public class MyCalenderTester {
 					// recurring days
 					String days = eventDetailsArray[0];
 					String[] recurringDays = days.split("");
+					
 					/*
 					 * probably the repeating days to string and compare future ones? 
 					 * idfk 
 					 */
+					for(int i=0; i < recurringDays.length; i++) {
+						switch(recurringDays[i]) {
+							case "S":
+								daysInWeek[i] = 0 ;
+								break;
+						}
+					}
 					// beginning date
 					Scanner detailScanner = new Scanner(eventDetailsArray[3]);
 					detailScanner.useDelimiter("[^0-9]+");
@@ -152,8 +160,9 @@ public class MyCalenderTester {
 				 * 0 1 2 3 4
 				 */
 
-				eventScanner.close();
+				
 			}
+			eventScanner.close();
 		} catch (IOException e) {
 			System.out.println("Error: File not found");
 			e.printStackTrace();

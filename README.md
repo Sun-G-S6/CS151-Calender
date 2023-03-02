@@ -1,2 +1,4 @@
 # CS151-Objected-Oriented-Design
-Calender project
+# Spring 2023 CS151 Programming Assignment 1
+My First Calendar
+

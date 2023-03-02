@@ -1,5 +1,5 @@
 # CS151-Objected-Oriented-Design
-Spring 2023 CS151 Programming Assignment 1
+# Spring 2023 CS151 Programming Assignment 1
 My First Calendar
 Instructor: Dr. Suneuy Kim
 Your program will be checked for plagiarism using Stanford MOSS.

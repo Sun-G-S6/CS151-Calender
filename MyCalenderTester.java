@@ -181,7 +181,8 @@ public class MyCalenderTester {
 							}
 						} 
 						else {
-							dayDiff = daysInWeek[j+1] - daysInWeek[j];
+							dayDiff = daysInWeek[j] - daysInWeek[j-1];		///////////////////////indexed out of bounds
+							//System.out.println(j+ "----------------------------this is J");
 							startDay = eventDay.getDayOfYear() + dayDiff;
 							for(int z = startDay; z <= endDate;) {
 								eventDay = eventDay.ofYearDay(year, z);
